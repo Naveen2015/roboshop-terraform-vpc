@@ -5,4 +5,5 @@ module "vpc" {
 
   cidr_block = each.value["cidr_block"]
   tags = local.tags
+  subnets = each.value["subnets"]
 }
