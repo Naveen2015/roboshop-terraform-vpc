@@ -7,3 +7,7 @@ module "vpc" {
   tags = local.tags
   subnets = each.value["subnets"]
 }
+
+output "naveen" {
+  value = module.vpc
+}
