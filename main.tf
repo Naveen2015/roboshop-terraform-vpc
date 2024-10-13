@@ -8,6 +8,3 @@ module "vpc" {
   subnets = each.value["subnets"]
 }
 
-output "naveen" {
-  value = module.vpc
-}
