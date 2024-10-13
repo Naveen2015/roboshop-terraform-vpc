@@ -8,3 +8,6 @@ module "vpc" {
   subnets = each.value["subnets"]
 }
 
+output "kruthika" {
+  value = module.vpc
+}
