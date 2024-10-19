@@ -64,7 +64,7 @@ module "rds" {
 
 module "elasticache" {
   source         = "git::https://github.com/Naveen2015/tf-module-elasticache.git"
-  for_each       = var.elasicache
+  for_each       = var.elasticache
   env            = var.env
   subnets = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
   tags           = local.tags
