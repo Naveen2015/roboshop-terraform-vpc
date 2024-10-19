@@ -74,7 +74,7 @@ module "elasticache" {
   kms_arn        = var.kms_arn
   num_node_groups = each.value["num_node_groups"]
   replicas_per_node_group=each.value["replicas_per_node_group"]
-  instance_class = each.value["node_type"]
+  node_type = each.value["node_type"]
 
 }
 
