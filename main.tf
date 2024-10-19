@@ -61,3 +61,19 @@ module "rds" {
   instance_class = each.value["instance_class"]
 
 }
+
+module "elasticache" {
+  source         = "git::https://github.com/Naveen2015/tf-module-elasticache.git"
+  for_each       = var.elasicache
+  env            = var.env
+  subnets = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
+  tags           = local.tags
+  vpc_id = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
+  allow_db_cidr = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_db_cidr"], null), "subnet_cidrs", null)
+  engine_version = each.value["engine_version"]
+  kms_arn        = var.kms_arn
+  num_node_groups = each.value["num_node_groups"]
+  replicas_per_node_group=each.value["replicas_per_node_group"]
+  instance_class = each.value["node_type"]
+
+}
