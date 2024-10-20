@@ -3,6 +3,8 @@ bastion_cidr=["172.31.88.27/32"]
 default_vpc_id = "vpc-02f710b2062993a8a"
 default_vpc_cidr = "172.31.0.0/16"
 default_vpc_rtid = "rtb-0cb268bf32e87ea82"
+domain_name= "kruthikadevops.online"
+domain_id = "Z01562533IX3SEB52WHM7"
 kms_arn = "arn:aws:kms:us-east-1:778395609776:key/6d2f21e3-5904-44cc-b487-76a74d764359"
 vpc={
   main={
@@ -42,6 +44,8 @@ app = {
     max_size           = 10
     min_size           = 1
     app_port  = 80
+    listener_priority =1
+    lb_type = "public"
   }
   catalogue={
     name = "catalogue"
@@ -52,6 +56,9 @@ app = {
     max_size           = 10
     min_size           = 1
     app_port = 8080
+    listener_priority =2
+    lb_type = "private"
+
   }
   /*cart={
     name = "cart"
