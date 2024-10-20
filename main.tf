@@ -93,3 +93,17 @@ module "rabbitmq" {
   bastion_cidr= var.bastion_cidr
 
 }
+
+module "alb" {
+  source = "git::https://github.com/Naveen2015/tf-module-alb.git"
+  for_each = var.alb
+  env = var.env
+  vpc_id = local.vpc_id
+  tags = local.tags
+  name = each.value["name"]
+  internal  = each.value["internal"]
+  subnets = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
+  allow_alb_cidr = each.value["name"]=="public"? [ "0.0.0.0/0" ]: lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_db_cidr"], null), "subnet_cidrs", null)
+
+
+}
