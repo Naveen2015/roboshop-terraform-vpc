@@ -103,7 +103,7 @@ module "alb" {
   name = each.value["name"]
   internal  = each.value["internal"]
   subnets = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
-  allow_alb_cidr = each.value["name"]=="public"? [ "0.0.0.0/0" ]: lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_db_cidr"], null), "subnet_cidrs", null)
+  allow_alb_cidr = each.value["name"]=="public"? [ "0.0.0.0/0" ]: lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_alb_cidr"], null), "subnet_cidrs", null)
 
 
 }
