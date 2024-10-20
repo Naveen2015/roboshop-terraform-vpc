@@ -17,6 +17,7 @@ output "kruthika" {
 
 
 module "app" {
+  depends_on = [module.vpc,module.docdb,module.alb,module.elasticache,module.rabbitmq,module.rds]
   source           = "git::https://github.com/Naveen2015/tf-module-app.git"
   for_each         = var.app
   instance_type    = each.value["instance_type"]
@@ -28,6 +29,7 @@ module "app" {
   subnet_ids = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
   name             = each.value["name"]
   env              = var.env
+  app_port = each.value["app_port"]
   vpc_id = lookup(lookup(module.vpc, "main", null), "vpc_id", null)
   allow_app_cidr = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_app_cidr"], null), "subnet_cidrs", null)
 }
