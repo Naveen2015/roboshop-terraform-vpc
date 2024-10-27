@@ -99,6 +99,7 @@ module "rabbitmq" {
   allow_db_cidr = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_db_cidr"], null), "subnet_cidrs", null)
 
   kms_arn        = var.kms_arn
+  domain_id = var.domain_id
 
   instance_type = each.value["instance_type"]
   bastion_cidr= var.bastion_cidr
