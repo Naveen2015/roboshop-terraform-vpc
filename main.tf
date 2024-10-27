@@ -26,6 +26,7 @@ module "app" {
   max_size         = each.value["max_size"]
   min_size         = each.value["min_size"]
   tags             = local.tags
+  kms_arn        = var.kms_arn
   subnet_ids = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
   name             = each.value["name"]
   env              = var.env
